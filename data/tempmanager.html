@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PID Manager</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <script src="jquery-3.6.0.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      //     $('.temp').click(function () {
+      //       $('.popup_box').css("display", "block");
+      //       // alert("Account Permanently Deleted.");
+      //       if ( $( "input#submit" ).first().val() === "200" ) {
+      //   $( "span" ).text( "Validated..." ).show();
+      //   return;
+      // }
+      //     });
+      // $("input#submit").click(function () {
+      //   $("input#submit").change();
+      // });
+      // $('.btn1').click(function () {
+      //   $('.popup_box').css("display", "none");
+      // });
+      // $('.btn2').click(function () {
+      //   $('.popup_box').css("display", "none");
+      //   alert("Account Permanently Deleted.");
+      // });
+      // $("#target2").submit(function (event) {
+      //   $('.popup_box').css("display", "block").show().fadeOut(2000);
+      //   // $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+      //   event.preventDefault();
+      //   // alert("Handler for .submit() called.");
+      //   // event.preventDefault();
+      // });
+      $("#target").submit(function (event) {
+        $('.popup_box').css("display", "block").show().fadeOut( 2000 );
+        let number = $("input").first().val();
+
+        // if($.isNumeric(number)){
+        // console.log(number);
+    //     if( number == '' ) {
+    //       $('.pTest').text("empty value is not valid.")
+    // }
+        if (number >= 25 && number <= 100) {
+          // console.log(number);
+          $('.pTest').text(number + "\xB0C value set")
+        } else if (number > 100 || number < 25 || number == '') {
+          // console.log(number);
+          $('.pTest').text(number + "\xB0C is not valid.")
+          // alert(number + " is not valid.");
+          event.preventDefault();
+        } 
+        // else if (number < 25) {
+        //   console.log(number);
+        //   alert(number + " is not valid.");
+        // }
+        //  }
+        // if ($("input").first().val() >= "200") {
+        //   $("span").text("Validated...").show();
+        //   // alert("Account Permanently Deleted.");
+        //   return;
+        // }
+        // $( "span" ).text( "Not valid!" ).show().fadeOut( 1000 );
+        // event.preventDefault();
+        // alert("Handler for .submit() called.");
+        // event.preventDefault();
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="topnav">
+    <a href="/">
+      <p>&#8249; back</p>
+    </a>
+    <h1>ESP TEMP Manager</h1>
+  </div>
+  <div class="content">
+    <div class="card-grid">
+      <!-- <div class="card">
+        <form id="target2" action="/" method="POST">
+          <p>
+            <label for="propotional">kP</label>
+            <input type="number" id="proportional" name="proportional" value="222">
+            
+            <br>
+            
+            <label for="integral">kI</label>
+            <input type="number" id="integral" name="integral" value="222"><br>
+            <label for="derivative">kD</label>
+            <input type="number" id="ip" name="derivative" value="222"><br>
+            <input type="submit" name="submit" value="Submit" change="alert(yolo)">
+          </p>
+        </form>
+      </div> -->
+      <div class="card">
+        <form id="target" action="/" method="POST">
+          <p>
+            <label for="propotional">Temperature</label><br>
+            <input type="number" id="temp" name="temp" value="">
+            <input class="temp" type="submit" value="Submit">
+            <br>
+            <!-- <p>Brightness</p> -->
+            <!-- <label for="integral">kI</label>
+            <input type="number" id ="integral" name="integral" value="222"><br>
+            <label for="derivative" >kD</label>
+            <input type="number" id ="ip" name="derivative" value="222"><br>
+            <input type ="submit" value ="Submit"> -->
+          </p>
+        </form>
+      </div>
+      <!-- <a href="#" class="click">Delete Account</a> -->
+      <div class="popup_box">
+        <!-- <i class="fas fa-exclamation"></i> -->
+        <!-- <h1>Your account will be deleted Permanently!</h1> -->
+        <label class="pTest">temperature value set</label>
+        <!-- <div class="btns">
+        <a href="#" class="btn1">Cancel Process</a>
+        <a href="#" class="btn2">Delete Account</a>
+      </div> -->
+      </div>
+    </div>
+    <!-- <div class="content">
+      <div class="card-grid">
+          <div class="card">
+              <p class="card-title">Fader 1</p>
+              <p class="switch">
+                  <input type="range" onchange="updateSliderPWM(this)" id="slider1" min="0" max="100" step="1" value ="0" class="slider">
+              </p>
+              <p class="state">Brightness: <span id="sliderValue1"></span> &percnt;</p>
+          </div>
+          <div class="card">
+              <p class="card-title"> Fader 2</p>
+              <p class="switch">
+                  <input type="range" onchange="updateSliderPWM(this)" id="slider2" min="0" max="100" step="1" value ="0" class="slider">
+              </p>
+              <p class="state">Brightness: <span id="sliderValue2"></span> &percnt;</p>
+          </div>
+          <div class="card">
+              <p class="card-title"> Fader 3</p>
+              <p class="switch">
+                  <input type="range" onchange="updateSliderPWM(this)" id="slider3" min="0" max="100" step="1" value ="0" class="slider">
+              </p>
+              <p class="state">Brightness: <span id="sliderValue3"></span> &percnt;</p>
+          </div>
+      </div>
+  </div> -->
+  </div>
+</body>
+
+</html>

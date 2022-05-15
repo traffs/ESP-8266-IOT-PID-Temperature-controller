@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>ESP WEB SERVER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+    integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+  <div class="topnav">
+    <div class="a2"><a href="/tempmanager">
+        <p>
+          <!-- <img src = "cog" alt="settings"/> -->
+          <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+          <!-- Generator: Gravit.io --><svg xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink" style="isolation:isolate" viewBox="0 0 16 16" width="16pt"
+            height="16pt">
+            <defs>
+              <clipPath id="_clipPath_Zrs7jLNjrrObri7aCPiENZAeq3KVibWV">
+                <rect width="16" height="16" />
+              </clipPath>
+            </defs>
+            <g clip-path="url(#_clipPath_Zrs7jLNjrrObri7aCPiENZAeq3KVibWV)">
+              <g>
+                <path
+                  d=" M 9.625 0 C 8.564 0 9.456 1.397 7.419 1.581 C 5.006 1.799 6.333 -0.398 4.187 0.727 C 2.041 1.853 4.603 2.011 3.051 3.872 C 1.498 5.733 0.883 3.24 0.161 5.554 C -0.561 7.867 1.363 6.167 1.581 8.581 C 1.799 10.994 -0.398 9.667 0.727 11.813 C 1.853 13.959 2.011 11.397 3.871 12.95 C 5.732 14.502 3.24 15.117 5.554 15.839 C 7.867 16.561 6.167 14.637 8.581 14.419 C 10.994 14.201 9.667 16.398 11.813 15.273 C 13.959 14.147 11.397 13.989 12.949 12.128 C 14.502 10.268 15.117 12.76 15.839 10.446 C 16.561 8.133 14.637 9.833 14.419 7.42 C 14.201 5.006 16.398 6.333 15.273 4.187 C 14.147 2.041 13.989 4.603 12.129 3.051 C 10.268 1.498 12.76 0.883 10.446 0.161 C 10.085 0.049 9.821 0 9.625 0 L 9.625 0 Z  M 8 3.663 C 9.135 3.663 10.264 4.13 11.067 4.933 C 11.87 5.736 12.337 6.864 12.337 8 C 12.337 9.135 11.87 10.264 11.067 11.067 C 10.264 11.87 9.135 12.337 8 12.337 C 6.865 12.337 5.736 11.87 4.933 11.067 C 4.13 10.264 3.663 9.135 3.663 8 C 3.663 6.864 4.13 5.736 4.933 4.933 C 5.736 4.13 6.865 3.663 8 3.663 L 8 3.663 Z "
+                  fill="rgb(255,255,255)" />
+              </g>
+            </g>
+          </svg>
+        </p>
+      </a></div>
+    <h1>Temperature</h1>
+  </div>
+  <div class="content">
+    <div class="card-grid">
+      <div class="card">
+        <p>
+          <i class="fas fa-thermometer-half" style="color:#059e8a;"></i>
+          <span class="ds-labels">Temperature Celsius</span> <br>
+          <p >
+            <span id="temperaturec">%TEMPERATUREC%</span>
+            &deg;C
+          </p>
+          <!-- <span id="temperaturec">100</span> -->
+          <!-- <sup class="units">&deg;C</sup> -->
+        </p>
+        <!-- <p class="card-title"><i class="fas fa-lightbulb"></i> temperature</p> -->
+        <!-- <p>
+            <a href="on"><button class="button-on">ON</button></a>
+            <a href="off"><button class="button-off">OFF</button></a>
+          </p> -->
+        <p id="state" class="state">Set:
+          <span id="setc">%SET%</span>
+          &deg;C
+        </p>
+        <!-- <p class="state">Set: %SET% &deg;C</p>
+          <p class="state">Set: %SET% &deg;C</p>
+          <p class="state">Set: %SET% &deg;C</p> -->
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+<script>
+  setInterval(function () {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        document.getElementById("temperaturec").innerHTML = this.responseText;
+      }
+    };
+    xhttp.open("GET", "/temperaturec", true);
+    xhttp.send();
+
+    let currentTemperature = document.getElementById('temperaturec').innerText;
+    let setTemperature = document.getElementById('setc').innerText;
+
+    let error = currentTemperature - setTemperature;
+    console.log(error);
+    if (error > 0) {
+      document.getElementById("state").style.color = "#ff0000";
+    }else if (error < 0) {
+      document.getElementById("state").style.color = "green";
+    }
+
+  }, 1000);
+</script>
