@@ -5,6 +5,7 @@
 
 #include <Arduino.h>
 
+extern float set_temperature;
 extern String State;
 extern String temperatureC;
 

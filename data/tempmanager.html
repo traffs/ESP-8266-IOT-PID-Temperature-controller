@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>PID Manager</title>
+  <title>Temperature Manager</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="data:,">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
@@ -37,23 +37,38 @@
       //   // event.preventDefault();
       // });
       $("#target").submit(function (event) {
-        $('.popup_box').css("display", "block").show().fadeOut( 2000 );
+        $('.popup_box').css("display", "block").show().fadeOut(2000);
         let number = $("input").first().val();
+
+
+        if (number >= 25 && number <= 100) {
+          if ($(document.activeElement).val() === "Save") {
+            $('.pTest').text("Saving "+number + "\xB0C to memory")
+            $.post('/',   // url
+       { save: number }, // data to be submit
+      //  function(data, status, jqXHR) {// success callback
+      //           $('p').append('status: ' + status + ', data: ' + data);
+      //   }
+        )
+          } else if ($(document.activeElement).val() === "Submit") {
+            $('.pTest').text(number + "\xB0C value set")
+          }
+        } else if (number > 100 || number < 25 || number == '') {
+          // if ($(document.activeElement).val() === "Save") {
+          //   console.log('number');
+          //   event.preventDefault();
+          // } else if ($(document.activeElement).val() === "Submit") {
+          //   $('.pTest').text(number + "\xB0C is not valid.")
+          // } // alert(number + " is not valid.");
+          $('.pTest').text(number + "\xB0C is not valid.")
+          event.preventDefault();
+        }
 
         // if($.isNumeric(number)){
         // console.log(number);
-    //     if( number == '' ) {
-    //       $('.pTest').text("empty value is not valid.")
-    // }
-        if (number >= 25 && number <= 100) {
-          // console.log(number);
-          $('.pTest').text(number + "\xB0C value set")
-        } else if (number > 100 || number < 25 || number == '') {
-          // console.log(number);
-          $('.pTest').text(number + "\xB0C is not valid.")
-          // alert(number + " is not valid.");
-          event.preventDefault();
-        } 
+        //     if( number == '' ) {
+        //       $('.pTest').text("empty value is not valid.")
+        // }
         // else if (number < 25) {
         //   console.log(number);
         //   alert(number + " is not valid.");
@@ -78,7 +93,7 @@
     <a href="/">
       <p>&#8249; back</p>
     </a>
-    <h1>ESP TEMP Manager</h1>
+    <h1>Temp Manager</h1>
   </div>
   <div class="content">
     <div class="card-grid">
@@ -101,10 +116,12 @@
       <div class="card">
         <form id="target" action="/" method="POST">
           <p>
-            <label for="propotional">Temperature</label><br>
-            <input type="number" id="temp" name="temp" value="">
+            <label>Temperature</label><br>
+            <!-- <label>25&deg;C - 100&deg;C</label><br> -->
+            <input type="number" id="temp" name="temp" onchange="setTwoNumberDecimal" min="25" max="100" step="0.01" value="">
             <input class="temp" type="submit" value="Submit">
             <br>
+            <input class="save" type="submit" value="Save">
             <!-- <p>Brightness</p> -->
             <!-- <label for="integral">kI</label>
             <input type="number" id ="integral" name="integral" value="222"><br>
@@ -118,7 +135,7 @@
       <div class="popup_box">
         <!-- <i class="fas fa-exclamation"></i> -->
         <!-- <h1>Your account will be deleted Permanently!</h1> -->
-        <label class="pTest">temperature value set</label>
+        <label class="pTest"></label>
         <!-- <div class="btns">
         <a href="#" class="btn1">Cancel Process</a>
         <a href="#" class="btn2">Delete Account</a>

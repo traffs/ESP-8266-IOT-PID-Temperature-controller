@@ -14,7 +14,7 @@ float R1 = 100000; //resistance at T0
 
 //Variables
 float temperature_read = 0.0;
-float set_temperature = 36;
+float set_temperature = 45;
 float PID_error = 0;
 float previous_error = 0;
 float elapsedTime, Time, timePrev;
@@ -56,10 +56,14 @@ double Thermister(int val) {
 
 }
 
+String State = String(set_temperature, 1);
+String temperatureC = String(temperature_read, 1);
+
 void setup() {
   Serial.begin(115200);
-  // pinMode(Heater_pin,OUTPUT);
+  pinMode(Heater_pin,OUTPUT);
   // analogWriteFreq(400.39);
+  controllersetup();
   Time = millis();
 }
 
@@ -67,9 +71,16 @@ void setup() {
 void loop() {
  // First we read the real value of temperature
   temperature_read = Thermister(AnalogRead());
-  Serial.println(temperature_read);
+
+  temperatureC = String(temperature_read, 1);
+
+  // Serial.print("temperature_read ");
+  // Serial.println(temperature_read);
+  Serial.println(set_temperature);
   //Next we calculate the error between the setpoint and the real value
   PID_error = set_temperature - temperature_read;
+  Serial.print("error ");
+  Serial.println(PID_error);
   //Calculate the P value
   PID_p = kp * PID_error;
   //Calculate the I value in a range on +-3
@@ -87,15 +98,15 @@ void loop() {
   //Final total PID value is the sum of P + I + D
   PID_value = PID_p  + PID_i + PID_d;
 
-  //We define PWM range between 0 and 255
+  //We define PWM range between 0 and 1023
   if(PID_value < 0)
   {    PID_value = 0;    }
-  if(PID_value > 255)  
-  {    PID_value = 255;  }
-  int final_value = 255-PID_value;
-  Serial.println(PID_value);
+  if(PID_value > 1023)  
+  {    PID_value = 1023;  }
+  int final_value = 1023-PID_value;
+  Serial.println(final_value);
   //Now we can write the PWM signal to the mosfet on digital pin D3
-  analogWrite(Heater_pin,Serial.println(255-PID_value));
+  analogWrite(Heater_pin,final_value);
   previous_error = PID_error;     //Remember to store the previous error for next loop.
 
   delay(300);
