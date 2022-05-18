@@ -17,7 +17,7 @@
 
 // Set these to your desired credentials.
 const char *ssid = "yourAP2";
-const char *password = "1234";
+const char *password = "12345678";
 
 // String State;
 // String temperatureC;
@@ -98,7 +98,7 @@ Serial.println(temperatureC);
 
   // You can remove the password parameter if you want the AP to be open.
   // WiFi.setmode(wifi.SOFTAP);
-  WiFi.softAP("ESPsoftAP_01", password);
+  WiFi.softAP(ssid, password);
   WiFi.softAPConfig(local_ip, gateway, subnet);
   IPAddress myIP = WiFi.softAPIP();
   Serial.print("AP IP address: ");

@@ -101,7 +101,7 @@ input[type=submit] {
   border: none;
   color: #FEFCFB;
   background-color: #034078;
-  padding: 15px 15px;
+  padding: 10px 15px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -115,6 +115,24 @@ input[type=submit] {
 input[type=submit]:hover {
   background-color: #1282A2;
 }
+
+input.save[type=submit] {
+  border: none;
+  color: #FEFCFB;
+  background-color: #ff6a00;
+  padding: 10px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 6px;
+  transition-duration: 0.4s;
+  }
+/* .tempS{
+  background-color: #037815;
+} */
 
 input[type=text], input[type=number], select {
   width: 50%;
@@ -189,11 +207,16 @@ button {
   border: 1px solid #0059b3;
 }
 .popup_box{
-  width: 400px;
-  background: #f2f2f2;
+  /* width: 400px; */
+   width: 50%;
+   height: 20px;
+  background: #00030587;
+  color: rgb(255, 255, 255);
   text-align: center;
   align-items: center;
-  padding: 40px;
+  padding: 10px;
+  border-radius: 25px;
+  /* border: 1px solid #eb9447; */
   /* border: 1px solid #b3b3b3;
   box-shadow: 0px 5px 10px rgba(0,0,0,.2); */
   z-index: 9999;
